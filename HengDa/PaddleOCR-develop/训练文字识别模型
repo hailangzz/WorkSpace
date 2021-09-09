@@ -1,0 +1,1 @@
+python tools/train.py -c configs/rec/CRNN_ctc.yml -o Global.checkpoints=./pretrain_models/ch_rec_r34_vd_crnn/best_accuracy

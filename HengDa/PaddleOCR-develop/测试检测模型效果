@@ -1,0 +1,1 @@
+python tools/infer_det.py -c configs/det/det_r50_vd_db.yml  -o TestReader.infer_img="F://det_mark_img_211.png" Global.checkpoints="./output/det_db/best_accuracy"

@@ -1,0 +1,13 @@
+TrainReader:
+  reader_function: ppocr.data.rec.dataset_traversal,SimpleReader
+  num_workers: 8
+  img_set_dir: ./train_data/cardnamedataset_oneword
+  label_file_path: ./train_data/real_retrainlabelall.txt
+  
+EvalReader:
+  reader_function: ppocr.data.rec.dataset_traversal,SimpleReader
+  img_set_dir: ./train_data/cardnamedataset_oneword
+  label_file_path: ./train_data/real_retrainlabelall.txt
+
+TestReader:
+  reader_function: ppocr.data.rec.dataset_traversal,SimpleReader

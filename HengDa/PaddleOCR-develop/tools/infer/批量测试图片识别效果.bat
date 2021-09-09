@@ -1,0 +1,1 @@
+python tools/infer_rec.py -c configs/rec/CRNN_ctc.yml -o Global.checkpoints=D:\python_program\paddle_ocr_project\PaddleOCR-develop\ch_rec_r34_vd_crnn\best_accuracy Global.infer_img=D:\cardnamedataset_oneword_\
