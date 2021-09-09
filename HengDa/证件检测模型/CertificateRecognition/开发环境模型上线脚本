@@ -1,0 +1,18 @@
+
+docker run -p 8504:8501   --mount type=bind,source=/data/pb_models,target=/models/pb_models -e MODEL_NAME=pb_models -t tensorflow/serving
+
+nvidia-docker run -p 8501:8501 --mount type=bind,source=/data/zhangzhuo/CertificateRecognition/saved_model,target=/models/saved_model -e MODEL_NAME=saved_model -e TF_FORCE_GPU_ALLOW_GROWTH=true -t tensorflow/serving:2.3.3-gpu &
+
+docker run -p 8501:8501 --mount type=bind,source=/data/zhangzhuo/CertificateRecognition/saved_model,target=/models/saved_model -e MODEL_NAME=saved_model -t tensorflow/serving:2.3.3-gpu &
+
+
+./total_train/true_sample/1322e577c2e-0d6f-481a-ac31-c7ffc68cd905.jpg
+
+./val_sample/true_sample/f659dd6a-781e-4129-b9fa-1b6e7aac03e6.JPG
+
+
+--docker 拷贝文件
+docker stop 0a8598157869
+docker cp  ./saved_model
+
+docker cp /data/zhangzhuo/CertificateRecognition/saved_model 0a8598157869:/models/
