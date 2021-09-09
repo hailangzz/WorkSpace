@@ -1,0 +1,5 @@
+host='bigdata-prd-cdh-cm-001'
+port=25004
+password='hive'
+user='impala'
+database='db_broker_ability'
