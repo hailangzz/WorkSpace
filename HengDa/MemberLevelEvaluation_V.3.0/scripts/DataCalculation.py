@@ -145,6 +145,11 @@ class DataCalculation():
 
         self.broker_score_result['update_time'] = self.origin_feature_df['update_time']
         self.broker_score_result = self.broker_score_result[['guid', 'PerformancedScore', 'CustomerDevelopmentScore', 'LivenessScore', 'TotalScore', 'update_time']]
+        self.broker_score_result['guid'] =self.broker_score_result['guid'].astype('str')
+        self.broker_score_result['PerformancedScore'] = self.broker_score_result['PerformancedScore'].astype('int')
+        self.broker_score_result['CustomerDevelopmentScore'] = self.broker_score_result['CustomerDevelopmentScore'].astype('int')
+        self.broker_score_result['LivenessScore'] = self.broker_score_result['LivenessScore'].astype('int')
+        self.broker_score_result['TotalScore'] = self.broker_score_result['TotalScore'].astype('int')
             # for broker_feature in self.broker_feature_dict:
             #     feature_score = 0
             #     if broker_feature=='业绩成交能力':

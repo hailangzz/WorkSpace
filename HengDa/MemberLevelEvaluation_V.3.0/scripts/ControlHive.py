@@ -32,7 +32,7 @@ class hiveConnect():
             if table_name not in all_table:
                 print('the table %s is not existing,create table %s!'%(table_name,table_name))
                 sql_command = 'create table db_broker_ability.%s(guid string,PerformancedScore int,CustomerDevelopmentScore int,LivenessScore int,TotalScore int) partitioned by(update_time string) ROW FORMAT DELIMITED FIELDS TERMINATED BY \',\' STORED AS TEXTFILE;'%table_name
-                self.cursor.execute()
+                self.cursor.execute(sql_command)
             log_object.write_logs('检查%s评分表成功！'%table_name)
         except Exception as e:
             log_object.write_logs(e)
@@ -55,7 +55,7 @@ class hiveConnect():
         return dat
 
 
-    def write_df(self, table_name, df, cols_type=dict(), is_week_beginning=False,once_cnt=100):
+    def write_df(self, table_name, df, update_time,cols_type=dict(),once_cnt=100):
         log_object = logs.logging()
         try:
             self.create_connect()
@@ -106,10 +106,7 @@ class hiveConnect():
 
     def _concat_cols_to_string(self, val_dic, col_type_dic):
 
-        columns_list = ['guid', 'CustomerDevelopmentScore', 'PerformancedScore', 'LivenessScore', 'totalScore',
-                        'CustomerDevelopmentScoreRadar', 'PerformancedScoreRadar', 'LivenessScoreRadar',
-                        'totalScoreRadar',
-                        'BrokerLevelFlag', 'update_time']
+        columns_list = ['guid', 'PerformancedScore','CustomerDevelopmentScore', 'LivenessScore', 'TotalScore']
         val_str = ''
         for colums_key in columns_list:
             if 'str' in col_type_dic[colums_key]:
