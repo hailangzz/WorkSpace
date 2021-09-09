@@ -1,0 +1,38 @@
+nvidia-docker pull tensorflow/tensorflow:2.3.3-gpu
+
+
+docker run -p 8501:8501   --mount type=bind,source=/home/zz/software/serving-master/tensorflow_serving/servables/tensorflow/testdata/saved_model_half_plus_two_cpu,target=/models/half_plus_two -e MODEL_NAME=half_plus_two -t tensorflow/serving &
+
+
+docker run -p 8502:8501  --mount type=bind,source=/home/zz/software/serving-master/tensorflow_serving/servables/tensorflow/testdata/modelName, target=/models/modelName  -e MODEL_NAME=modelName -t tensorflow/serving &
+
+
+docker run -p 8502:8501   --mount type=bind,source=/home/zz/software/serving-master/tensorflow_serving/servables/tensorflow/testdata/modelName,target=/models/modelName1 -e MODEL_NAME=modelName1 -t tensorflow/serving &
+
+python -m paddle_serving_server.serve --model G:\谷歌下载\uci_housing\ --thread 10 --port 9292 --name uci
+
+
+python -m paddle_serving_server.serve --model uci_housing_model --thread 10 --port 9393  --name uci
+
+
+python tools/export_model.py -c configs/face_detection/blazeface_1000e.yml --output_dir=./inference_model -o weights='https://paddlemodels.bj.bcebos.com/object_detection/faceboxes_original.tar'
+
+
+docker run  -it -d -p 8501:8501 --log-driver syslog --log-opt syslog-address=tcp://127.0.0.1:8501 --name  ImageDetection  --mount  type=bind,source=/data/pb_models,target=/models/pb_models -e MODEL_NAME=pb_models -t tensorflow/serving
+
+curl -d '{"instances": [1.0, 2.0, 5.0]}' -X POST http://192.168.234.132:8501/v1/models/half_plus_two:predict
+
+curl http://192.168.234.132:8502/v1/models/pb_models:predict
+
+--
+docker run -p 8500:8500  -p 8505:8501 --mount type=bind,source=/data/clothing,target=/models/clothing -e MODEL_NAME=clothing -t tensorflow/serving
+
+
+nvidia-docker run -p 8868:8868 -d  cc891a92fd9a
+
+--GPU服务器上部署头像审核模型
+docker pull tensorflow/serving:2.3.3-gpu
+
+docker run -p 8502:8500 -p 8501:8501   --mount type=bind,source=/data1/zhangz/saved_model,target=/models/saved_model -e MODEL_NAME=saved_model -t tensorflow/serving &
+
+nvidia-docker run -p 8502:8500 -p 8501:8501 --name ImageDetection --mount type=bind,source=/data1/zhangz/saved_model,target=/models/saved_model -e MODEL_NAME=saved_model -e TF_FORCE_GPU_ALLOW_GROWTH=true -t tensorflow/serving:2.3.3-gpu &
